@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenfan.seckill.mapper.SequenceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.SequenceInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="current_value" property="currentValue" jdbcType="INTEGER" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="geSequenceInfoByName" resultMap="BaseResultMap">
+    SELECT *
+    FROM sequence_info
+    WHERE name = #{name}
+    FOR UPDATE
+  </select>
+</mapper>

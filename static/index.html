@@ -1,0 +1,89 @@
+  <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>限时秒杀</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+
+        <section class="jq22-flexView">
+            <header class="jq22-navBar jq22-navBar-fixed b-line">
+                <a href="/login.html" class="jq22-navBar-item">
+                    <i class="icon icon-return" ></i>
+                </a>
+                <div class="jq22-center">
+                    <span class="jq22-center-title">限时秒杀</span>
+                </div>
+                <a href="javascript:;" class="jq22-navBar-item">
+                    <i class="icon icon-share"></i>
+                </a>
+            </header>
+            <section class="scrollView">
+                <div class="jq22-flex" style="padding-bottom:2px;">
+                    <div class="jq22-flex-box">
+                        <p style="color: #fd5f0c;">抢购中 数量有限下单先得哦</p>
+                    </div>
+
+                    <div class="jq22-limit-time clearfix">
+                        <div class="jq22-fl-time">距结束</div>
+                        <div class="time-item">
+                            <span class="hour_show">00</span>
+                            <em>:</em>
+                            <span class="minute_show">00</span>
+                            <em>:</em>
+                            <span class="second_show">00</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="jq22-limit-box" id="seckill-container">
+                <!--填充内容-->
+                </div>
+            </section>
+        </section>
+        <script src="js/getHost.js"></script>
+        <script src="js/seckill.js"></script>
+        <script type="text/javascript">
+
+            var intDiff = parseInt(15000);
+            //倒计时总秒数量
+
+            function timer(intDiff) {
+                window.setInterval(function() {
+                    var day = 00
+                        , hour = 00
+                        , minute = 00
+                        , second = 00;
+                    //时间默认值
+                    if (intDiff > 0) {
+                        day = Math.floor(intDiff / (60 * 60 * 24));
+                        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                    }
+                    if (minute <= 9)
+                        minute = '0' + minute;
+                    if (second <= 9)
+                        second = '0' + second;
+                    $('.hour_show').html('0<s id="h"></s>' + hour + ' ');
+                    $('.minute_show').html('<s></s>' + minute + ' ');
+                    $('.second_show').html('<s></s>' + second + ' ');
+                    intDiff--;
+                }, 1000);
+            }
+
+            $(function() {
+                timer(intDiff);
+            });
+        </script>
+
+
+    </body>
+</html>

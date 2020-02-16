@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenfan.seckill.mapper.StockLogMapper">
+  <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.StockLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="stock_log_id" jdbcType="VARCHAR" property="stockLogId" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="operating_time" property="operatingTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenfan.seckill.mapper.ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.Item" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getAllEnabledItem" resultMap="BaseResultMap">
+    SELECT *
+    FROM item
+  </select>
+
+  <select id="getSingleItemById" resultMap="BaseResultMap">
+    SELECT *
+    FROM item
+    WHERE id = #{itemId}
+  </select>
+
+
+  <update id="deleteSingleItemById" >
+    UPDATE item
+    <set>
+      <if test="itemId != null">
+        status = '0'
+      </if>
+    </set>
+    WHERE id = #{itemId}
+  </update>
+
+  <update id="increaseSales">
+      UPDATE item
+      SET sales = sales + #{amount}
+      WHERE id = #{itemId}
+  </update>
+
+  <update id="updateItem">
+    UPDATE item
+    SET title = #{item.title} ,price =#{item.price} ,description = #{item.description},img_url = #{item.imgUrl},status = #{item.status}
+    WHERE id = #{item.id}
+  </update>
+
+</mapper>

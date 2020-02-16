@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>秒杀系统注册</title>
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+	<link href="css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<section class="aui-flexView">
+	<header class="aui-navBar aui-navBar-fixed">
+		<a href="javascript:history.go(-1)" class="aui-navBar-item">
+			<i class="icon icon-return"></i>
+		</a>
+		<div class="aui-center">
+			<span class="aui-center-title"></span>
+		</div>
+		<a href="javascript:;" class="aui-navBar-item" >
+			客服
+		</a>
+	</header>
+	<section class="aui-scrollView">
+		<div class="aui-ver-head">
+			<img src="images/head.png" alt="">
+		</div>
+		<div class="aui-ver-form">
+			<h2>系统注册</h2>
+			<div class="aui-flex">
+				<div class="aui-flex-box">
+					<i class="icon icon-phone"></i>
+					<input id="phone" type="text" autocomplete="off" placeholder="手机号码" >
+				</div>
+			</div>
+			<div class="aui-flex">
+				<div class="aui-flex-box">
+					<i class="icon icon-code"></i>
+					<input id="password" type="password" autocomplete="off" placeholder="密码">
+				</div>
+			</div>
+			<div class="aui-flex">
+				<div class="aui-flex-box">
+					<i class="icon icon-code"></i>
+					<input id="re-password" type="password" autocomplete="off" placeholder="请重复输入密码">
+				</div>
+			</div>
+			<div class="aui-flex">
+				<div class="aui-flex-box">
+					<i class="icon icon-code"></i>
+					<input id="code" type="text" autocomplete="off" placeholder="验证码">
+				</div>
+				<div class="aui-button-code">
+					<input id="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+				</div>
+			</div>
+			<div class="aui-ver-button">
+				<button onClick="binding()">立即注册</button>
+			</div>
+			<div class="aui-ver-button">
+				<button onClick="goLoginPage()">去登录</button>
+			</div>
+			<div class="aui-cell-box">
+				<label class="cell-right">
+					<input type="checkbox" value="1" name="checkbox" checked="checked">
+					<i class="cell-checkbox-icon"></i>
+					<em>同意秒杀网注册协议</em>
+				</label>
+			</div>
+
+		</div>
+		<div class="aui-login-box">
+			<h2>其它登录方式</h2>
+		</div>
+		<div class="aui-palace">
+			<a href="javascript:;" class="aui-palace-grid">
+				<div class="aui-palace-grid-icon">
+					<img src="images/icon-sc1.png" alt="">
+				</div>
+				<div class="aui-palace-grid-text">
+					<h2>微信</h2>
+				</div>
+			</a>
+			<a href="javascript:;" class="aui-palace-grid">
+				<div class="aui-palace-grid-icon">
+					<img src="images/icon-sc2.png" alt="">
+				</div>
+				<div class="aui-palace-grid-text">
+					<h2>淘宝</h2>
+				</div>
+			</a>
+			<a href="javascript:;" class="aui-palace-grid">
+				<div class="aui-palace-grid-icon">
+					<img src="images/icon-sc3.png" alt="">
+				</div>
+				<div class="aui-palace-grid-text">
+					<h2>腾讯</h2>
+				</div>
+			</a>
+			<a href="javascript:;" class="aui-palace-grid">
+				<div class="aui-palace-grid-icon">
+					<img src="images/icon-sc4.png" alt="">
+				</div>
+				<div class="aui-palace-grid-text">
+					<h2>微博</h2>
+				</div>
+			</a>
+		</div>
+
+	</section>
+</section>
+</body>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/getHost.js"></script>
+<script type="text/javascript">
+	var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+	var count = 60;
+	var InterValObj1;
+	var curCount1;
+	function sendMessage1() {
+		curCount1 = count;
+		var phone = $.trim($('#phone').val());
+		if (!phoneReg.test(phone)) {
+			alert(" 请输入有效的手机号码");
+			return false;
+		}
+        $.ajax({
+            type: "get",
+            url: "http://"+host+"/sms",
+			data:{
+				"phone":phone
+			},
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (data) {
+				alert("验证码已发送!");
+            },
+            error: function (data) {
+                alert(data.message);
+            }
+        });
+
+		$("#btnSendCode1").attr("disabled", "true");
+		$("#btnSendCode1").val( + curCount1 + "秒再获取");
+		InterValObj1 = window.setInterval(SetRemainTime1, 1000);
+
+	}
+	function SetRemainTime1() {
+		if (curCount1 == 0) {
+			window.clearInterval(InterValObj1);
+			$("#btnSendCode1").removeAttr("disabled");
+			$("#btnSendCode1").val("重新发送");
+		}
+		else {
+			curCount1--;
+			$("#btnSendCode1").val( + curCount1 + "秒再获取");
+		}
+	}
+
+	function binding(){
+        var phone = $('#phone').val();
+        var password = $("#password").val();
+        var rePassword = $("#re-password").val();
+		var smsCode =  $("#code").val();
+		if (phone == null || phone == ""){
+			alert("手机号为空！");
+			return false;
+		}
+        if (password == null || password == ""){
+            alert("密码为空！");
+            return false;
+        }
+        if (rePassword == null || rePassword == ""){
+            alert("请重复密码！");
+            return false;
+        }
+        if (smsCode == null || smsCode == ""){
+            alert("手机号为空！");
+            return false;
+        }
+        if (password != rePassword){
+			alert("两次密码不相同！");
+			return false;
+		}
+
+		$.ajax({
+			type: "post",
+			url: "http://"+host+"/register",
+			data:{
+			    "phone":phone,
+				"password":password,
+				"code":smsCode
+			},
+            xhrFields: {
+                withCredentials: true
+            },
+			success: function (data) {
+				if (data.code == "200"){
+				    alert("注册成功");
+				}else{
+				    alert("注册失败")
+				}
+            },
+			error: function (data) {
+                if (data.code == "200"){
+                    alert("注册成功");
+                }else{
+                    alert("注册失败");
+                }
+            }
+		})
+
+	}
+
+	function goLoginPage() {
+		location.href = '/login.html';
+    }
+</script>
+
+</html>

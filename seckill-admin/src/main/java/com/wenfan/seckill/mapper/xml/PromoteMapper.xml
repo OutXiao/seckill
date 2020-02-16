@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenfan.seckill.mapper.PromoteMapper" >
+  <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.Promote" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="promote_name" property="promoteName" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="promote_item_price" property="promoteItemPrice" jdbcType="DOUBLE" />
+  </resultMap>
+
+  <select id="getPromoteByItemId" resultMap="BaseResultMap">
+    SELECT *
+    FROM promote
+    WHERE item_id = #{itemId}
+  </select>
+
+</mapper>

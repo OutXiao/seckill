@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenfan.seckill.mapper.SysPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.SysPermission">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="href" property="href" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="BIT"/>
+        <result column="permission" property="permission" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="listPermissionsByUserId" resultMap="BaseResultMap">
+      SELECT DISTINCT
+	    p.*
+      FROM
+	    sys_permission p
+	    INNER JOIN sys_role_permission rp ON p.id = rp.permissionId
+	    INNER JOIN sys_role_user ru ON ru.roleId = rp.roleId
+	    WHERE userId = #{userId} ORDER BY sort ASC
+  </select>
+
+    <select id="listPermissionByRoleId" resultMap="BaseResultMap">
+      SELECT DISTINCT
+      p.*
+      FROM
+        sys_permission p
+      INNER JOIN sys_role_permission rp ON p.id = rp.permissionId
+      WHERE rp.roleId = #{roleId}
+  </select>
+
+    <select id="getPermissionById" resultMap="BaseResultMap">
+        SELECT *
+        FROM sys_permission
+        WHERE id = #{permissionId}
+    </select>
+
+
+
+
+    <delete id="delPermissionById">
+        DELETE FROM sys_permission
+        WHERE id = #{permissionId}
+    </delete>
+
+
+</mapper>

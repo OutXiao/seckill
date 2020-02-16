@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenfan.seckill.mapper.ItemStockMapper" >
+  <resultMap id="BaseResultMap" type="com.wenfan.seckill.entity.ItemStock" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="getItemStockByItemId" resultMap="BaseResultMap">
+    SELECT *
+    FROM item_stock
+    WHERE item_id = #{itemId}
+  </select>
+
+  <update id="decreaseStock">
+    UPDATE item_stock
+    SET stock = stock - #{amount}
+    WHERE item_id = #{itemId} AND stock >= #{amount}
+  </update>
+
+  <update id="editStockByItemId">
+    UPDATE item_stock
+    SET stock = #{stock}
+    WHERE item_id = #{itemId}
+  </update>
+</mapper>

@@ -1,0 +1,219 @@
+<style>
+    table {
+        table-layout: fixed;
+    }
+</style>
+<!-- /. NAV SIDE  -->
+<div id="page-inner">
+    <div class="row1">
+        <div class="col-md-12">
+            <h1 class="page-header1">
+                用户管理
+                <small>查询用户</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /. ROW  -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Advanced Tables -->
+            <div class="panel-body">
+
+
+                <div class="form-group input-group">
+                    <button class="btn btn-primary btn-small" data-toggle="modal" data-target="#myModal">
+                        添加用户
+                    </button>
+                    <input type="text" class="form-control " name="searchText" style="width: 20%; float: right;"
+                           placeholder="请输入用户名">
+                    <span class="input-group-btn">
+                                <button class="btn btn-default" id="searchUser" type="button"><i
+                                        class="fa fa-search"></i>
+                                </button>
+                            </span>
+
+                </div>
+
+
+                <!--添加的模态框 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="form-group">
+                                        <label>用户名:</label>
+                                        <!--   输入框长度  style='padding:0.15em; width:46px;'minlength="4" maxlength="4" -->
+                                        <input class="form-control input-sm" name="add-username" placeholder="请输入用户名"
+                                               required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;&nbsp;&nbsp;密码:</label>
+                                        <input class="form-control" name="add-password" placeholder="请输入密码" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>昵称:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input class="form-control" name="add-nickname" placeholder="请输入昵称" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>手机号:</label>
+                                        <input class="form-control" name="add-phone" placeholder="请输入手机号" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>邮箱</label>
+                                        <input class="form-control" name="add-email" placeholder="请输入邮箱" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <select class="form-control" id="add-sex">
+                                            <option value="1">男</option>
+                                            <option value="2">女</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>出生日期:</label>
+                                        <input class="form-control" name="add-birthday" placeholder="请输入出生年月" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>角色</label>
+                                        <select class="form-control" id="add-role">
+                                            <!-- 后台加载 -->
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="addUser">确定</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 编辑模态框-->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myeditModalLabel">修改用户信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="form-group">
+                                        <input type="hidden" id="edit-id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>用户名:</label>
+                                        <!--   输入框长度  style='padding:0.15em; width:46px;'minlength="4" maxlength="4" -->
+                                        <input class="form-control input-sm" name="edit-username" placeholder="请输入用户名"
+                                               required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>昵称:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <input class="form-control" name="edit-nickname" placeholder="请输入昵称" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>手机号:</label>
+                                        <input class="form-control" name="edit-phone" placeholder="请输入手机号" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>邮箱</label>
+                                        <input class="form-control" name="edit-email" placeholder="请输入邮箱" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <select class="form-control" id="edit-sex" name="sex">
+                                            <option value="1">男</option>
+                                            <option value="2">女</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>角色</label>
+                                        <select class="form-control" id="edit-role" name="role">
+                                            <!-- 后端加载角色 -->
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="editUser">确定更改</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 主模块 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        所有用户
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="table" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>电话</th>
+                                    <th>邮箱</th>
+                                    <th>性别</th>
+                                    <th>状态</th>
+
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>用户名</th>
+                                    <th>电话</th>
+                                    <th>邮箱</th>
+                                    <th>性别</th>
+                                    <th>状态</th>
+
+                                    <th>操作</th>
+                                </tr>
+                                </tfoot>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Advanced Tables -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- &lt;!&ndash; Bootstrap Js &ndash;&gt;-->
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <!-- &lt;!&ndash; DATA TABLE SCRIPTS &ndash;&gt;-->
+    <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/assets/js/user/user.js"></script>
+    <!--&lt;!&ndash; Custom Js &ndash;&gt;-->
+    <script src="assets/js/custom-scripts.js"></script>
+
+</div>

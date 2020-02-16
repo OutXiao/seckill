@@ -1,0 +1,129 @@
+﻿<style>
+    table {
+        table-layout: fixed;
+    }
+</style>
+<!-- /. NAV SIDE  -->
+<div id="page-inner">
+    <div class="row1">
+        <div class="col-md-12">
+            <h1 class="page-header1">
+                分类管理
+                <small>Responsive tables</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /. ROW  -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Advanced Tables -->
+            <div class="panel-body">
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    添加分类
+                </button>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">添加分类</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="videoForm">
+                                    <div class="form-group">
+                                        <label>分类名称</label>
+                                        <input class="form-control" id="name" name="name" placeholder="请输入分类名称"
+                                               required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="addVideo">确定</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myeditModalLabel">添加视频</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editCategoryForm">
+                                    <div class="form-group">
+                                        <label>分类名称</label>
+                                        <input class="form-control" name="name1" placeholder="请输入分类名称" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="editVideo">确定更改</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        所有分类
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="table" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>分类名</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>分类名</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </tfoot>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Advanced Tables -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="../js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="../js/dataTables/jquery.dataTables.js"></script>
+    <script src="../js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../js/dataTables/categoryDatatable.js"></script>
+    <!-- Custom Js -->
+    <script src="../js/custom-scripts.js"></script>
+
+</div>

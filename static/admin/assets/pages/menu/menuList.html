@@ -1,0 +1,165 @@
+<style>
+    table {
+        table-layout: fixed;
+    }
+</style>
+<!--<link rel="stylesheet" type="text/css" href="assets/css/bootstrap/bootstrap.css">-->
+<link rel="stylesheet" type="text/css" href="assets/css/treetable/jquery.treetable.css">
+<link rel="stylesheet" type="text/css" href="assets/css/treetable/jquery.treetable.theme.default.css">
+<!-- /. NAV SIDE  -->
+<div id="page-inner">
+    <div class="row1">
+        <div class="col-md-12">
+            <h1 class="page-header1">
+                菜单管理
+                <small>Responsive tables</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /. ROW  -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Advanced Tables -->
+            <div class="panel-body">
+                <button class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+                    添加菜单
+                </button>
+                <button class="btn btn-success" onclick="$('#example-basic').treetable('collapseAll'); return false;">折叠所有
+                </button>
+                <button class="btn btn-success" onclick="$('#example-basic').treetable('expandAll');  return false;">展开所有
+                </button>
+                <!--上传视频的模态框 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">添加视频</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addForm">
+                                    <div class="form-group">
+                                        <label>名称</label>
+                                        <input class="form-control" name="add-name" placeholder="请输入菜单或者权限名称" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>链接</label>
+                                        <input class="form-control" name="add-url" placeholder="请输入url">(若为菜单则不能为空)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>图标</label>
+                                        <input class="form-control" name="add-icon" placeholder="请输入点赞数量" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>排序</label>
+                                        <input class="form-control" name="add-sort" placeholder="请输入序号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>上级菜单</label>
+                                        <select class="form-control" id="add-parent">
+                                            <option value="0">ROOT</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="add">确定更改</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 编辑模态框-->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                </button>
+                                <h4 class="modal-title" id="myeditModalLabel">变更</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editForm">
+                                    <div class="form-group">
+                                        <label>名称</label>
+                                        <input class="form-control" name="name" placeholder="请输入菜单或者权限名称" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>链接</label>
+                                        <input class="form-control" name="url" placeholder="请输入url">(若为菜单则不能为空)
+                                    </div>
+                                    <div class="form-group">
+                                        <label>图标</label>
+                                        <input class="form-control" name="icon" placeholder="请输入点赞数量" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>排序</label>
+                                        <input class="form-control" name="sort" placeholder="请输入序号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>上级菜单</label>
+                                        <select class="form-control" id="parent">
+                                            <option value="0">ROOT</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" id="edit">确定更改</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 主模块 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        菜单列表和权限
+                    </div>
+
+                    <div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div>
+                                <div class="widget-body no-padding">
+                                    <table id="example-basic" class="table table-striped table-bordered table-hover"
+                                           style="width:100%">
+                                        <tr>
+                                            <th width="20%">名称</th>
+                                            <th width="10%">id</th>
+                                            <th width="30%">href</th>
+                                            <th width="15%">permission</th>
+                                            <th width="5%">sort</th>
+                                            <th >操作</th>
+                                        </tr>
+                                        <tbody id="treeTable-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Advanced Tables -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/treeTable/jquery.treetable.js"></script>
+    <script src="assets/js/menu/menu.js"></script>
+
+</div>
