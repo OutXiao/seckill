@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>后台管理系统</title>
     <!-- Bootstrap Styles-->
@@ -301,6 +302,12 @@
 
 
 <script type="application/javascript">
+
+
+    $.ajaxSetup ({
+        cache: true //close AJAX cache
+    });
+
     var token = JSON.parse(sessionStorage.getItem('token'));
     // 系统菜单初始化请求
     $.ajax({
@@ -358,8 +365,10 @@
         if (pageIndex == "" || pageIndex == null ){
             return ;
         }{
+            var now=new Date();
+            $("#page-wrapper").empty();
             /* 点击前先移除之前所选*/
-            $("#page-wrapper").load("/assets" + pageIndex);
+            $("#page-wrapper").load("/assets" + pageIndex +"?time="+now.getTime());
         }
 
     }

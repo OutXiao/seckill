@@ -1,8 +1,9 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>限时秒杀</title>
+        <meta http-equiv="Cache-Control" content="max-age=7200" />
         <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
         <meta content="yes" name="apple-mobile-web-app-capable"/>
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
@@ -48,13 +49,17 @@
                 </div>
             </section>
         </section>
+        <script>
+            $.ajaxSetup ({
+                cache: true
+            });
+        </script>
         <script src="js/getHost.js"></script>
         <script src="js/seckill.js"></script>
         <script type="text/javascript">
 
-            var intDiff = parseInt(15000);
+            var intDiff = parseInt(35000);
             //倒计时总秒数量
-
             function timer(intDiff) {
                 window.setInterval(function() {
                     var day = 00
@@ -83,7 +88,6 @@
                 timer(intDiff);
             });
         </script>
-
 
     </body>
 </html>

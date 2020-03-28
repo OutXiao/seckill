@@ -1,10 +1,12 @@
 package com.wenfan.seckill.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
+import com.wenfan.seckill.entity.ItemUser;
 import com.wenfan.seckill.entity.StockLog;
 import com.wenfan.seckill.entity.SysUser;
 import com.wenfan.seckill.exception.OrderException;
 import com.wenfan.seckill.exception.SystemException;
+import com.wenfan.seckill.mapper.ItemUserMapper;
 import com.wenfan.seckill.mq.MqProducer;
 import com.wenfan.seckill.service.ItemService;
 import com.wenfan.seckill.service.OrderService;
@@ -45,6 +47,9 @@ public class OrderController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private ItemUserMapper itemUserMapper;
+
     private RateLimiter rateLimiter;
 
     @PostConstruct
@@ -56,9 +61,13 @@ public class OrderController {
     public ResponseInfo createOrder(@RequestParam(name = "itemId") Integer itemId,
                                     @RequestParam( name = "amount") Integer amount,
                                     @RequestParam(name = "promoteId" ,required = false)  Integer promoteId) throws OrderException {
+
+
         if (!rateLimiter.tryAcquire()){    // 活动限流
-            ResponseInfo.success("活动太火爆");
+            return ResponseInfo.success("活动太火爆");
         }
+
+
 
         SysUser sysUser = SysUserUtil.getLoginUser();
         if (sysUser == null)
@@ -66,11 +75,18 @@ public class OrderController {
         SysUser user = userService.getSysUser(sysUser.getUsername());
         //orderService.createOrder(user.getId(),itemId,promoteId,amount);
 
-
+        if (promoteId == null)
+            throw new SystemException("该商品未参加活动");
 
         // 判断商品是否售罄
         if (redisTemplate.hasKey("sell_out:promote_item_stock_invalid_"+itemId))
             throw new SystemException("商品已经售罄");
+
+        // 判断是否重复购买
+        ItemUser itemUser = itemUserMapper.isBuy(sysUser.getId(),itemId);
+        if (itemUser != null){
+            return ResponseInfo.exception("不能重复购买！");
+        }
 
         StockLog stockLog = itemService.initStockLog(itemId,amount);
         if (!mqProducer.transactionAsyncReduceStock(user.getId(),promoteId,itemId,amount,stockLog)){

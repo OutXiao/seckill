@@ -1,15 +1,9 @@
 package com.wenfan.seckill.service.impl;
 
-import com.wenfan.seckill.entity.OrderInfo;
-import com.wenfan.seckill.entity.SequenceInfo;
-import com.wenfan.seckill.entity.StockLog;
-import com.wenfan.seckill.entity.SysUser;
+import com.wenfan.seckill.entity.*;
 import com.wenfan.seckill.exception.OrderException;
 import com.wenfan.seckill.exception.SystemException;
-import com.wenfan.seckill.mapper.ItemMapper;
-import com.wenfan.seckill.mapper.OrderInfoMapper;
-import com.wenfan.seckill.mapper.SequenceInfoMapper;
-import com.wenfan.seckill.mapper.StockLogMapper;
+import com.wenfan.seckill.mapper.*;
 import com.wenfan.seckill.service.ItemService;
 import com.wenfan.seckill.service.OrderService;
 import com.wenfan.seckill.utils.SysUserUtil;
@@ -44,6 +38,9 @@ public class OrderSeriviceImpl implements OrderService {
     @Autowired
     private StockLogMapper stockLogMapper;
 
+    @Autowired
+    private ItemUserMapper itemUserMapper;
+
     @Override
     @Transactional
     public OrderInfo createOrder(Integer userId, Integer itemId, Integer promoId, Integer amount,StockLog stockLog) throws OrderException {
@@ -51,28 +48,28 @@ public class OrderSeriviceImpl implements OrderService {
         // 1.校验下单的商品是否存在、用户是否合法、购买数量是否正确
         ItemVO itemVO = itemService.getItemByIdInCache(itemId);
         if (itemVO == null)
-            throw new OrderException("商品不存在");
+            throw new SystemException("商品不存在");
         SysUser user = SysUserUtil.getLoginUser();
         if (user == null)
-            throw new OrderException("用户没有登录");
+            throw new SystemException("用户没有登录");
         if (amount < 0 | amount >99)
             throw new OrderException("商品数量无效");
         if (itemVO.getPromoteStatus() == null|| itemVO.getPromoteStatus() != 2  ){
-            throw new OrderException("秒杀活动时间不在规定范围");
+            throw new SystemException("秒杀活动时间不在规定范围");
         }
         //校验秒杀活动是否适用于秒杀商品
         if (promoId != null){
             if (promoId.intValue() != itemVO.getPromoteId().intValue()){
-                throw new OrderException("活动信息错误");
+                throw new SystemException("活动信息错误");
             }
+        }else{
+            throw new SystemException("该商品未参加活动");
         }
-
-
 
         //2.减库存  此时减库存被消息队列消费
         boolean result = itemService.decreaseStock(itemId,amount);
         if (!result)
-            throw new OrderException("库存不足");
+            throw new SystemException("库存不足");
 
         // 3.订单入库
         OrderInfo orderInfo = new OrderInfo();
@@ -91,16 +88,20 @@ public class OrderSeriviceImpl implements OrderService {
         orderInfoMapper.insertSelective(orderInfo);
 
 
-/*
+
         //spring在事务提交之后在执行
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
             @Override
             public void afterCommit() {
-                ////// 执行有业务
+                // 添加用户商品购买记录
+                ItemUser itemUser = new ItemUser();
+                itemUser.setItemId(itemId);
+                itemUser.setUserId(userId);
+                itemUserMapper.insertSelective(itemUser);
             }
         });
 
-*/
+
 
 
         // 4. 增加销量

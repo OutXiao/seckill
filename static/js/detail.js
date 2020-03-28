@@ -16,7 +16,7 @@ $.ajax({
        content = "<img src='"+data.object.imgUrl+"' width=\"100%\"/>\n" +
                 "<p class=\"tit\">" +data.object.title+
            "<div class=\"qita\">\n" +
-           "<p class=\"p1\">"+data.object.price+"<span>新品促销</span></p>\n" +
+           "<p class=\"p1\">"+data.object.price+"<span>结束时间:"+data.object.promoteEndDate+"</span></p>\n" +
            "<p class=\"p2\">全国包邮   |   销量"+data.object.sales+"</p>\n" +
            "</div>";
        $("#imgAndtitleAndPriceAndSales").append(content);
@@ -49,7 +49,7 @@ $("#createOrder").click(function () {
                 alert(data.message + "");
             },
             error: function (data) {
-                alert(data.message + "");
+                alert(data.message+"");
             }
 
         })

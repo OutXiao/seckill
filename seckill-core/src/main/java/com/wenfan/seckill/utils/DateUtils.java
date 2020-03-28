@@ -13,13 +13,15 @@ import java.util.Date;
  */
 public class DateUtils {
 
+
+
     public static String formatDate(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return simpleDateFormat.format(date);
     }
 
     public static Date stringConvertToDate(String dateString) throws NullPointerException {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             if (dateString != null) {
                 return format.parse(dateString);
@@ -31,6 +33,8 @@ public class DateUtils {
         }
         return null;
     }
+
+
 
 
 }

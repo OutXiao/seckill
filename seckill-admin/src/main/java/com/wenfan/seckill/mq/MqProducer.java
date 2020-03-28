@@ -121,12 +121,13 @@ public class MqProducer {
             e.printStackTrace();
             return false;
         }
+        // 事务型消息回滚
         if (sendResult.getLocalTransactionState() == LocalTransactionState.ROLLBACK_MESSAGE){
             return false;
         }else if (sendResult.getLocalTransactionState() == LocalTransactionState.COMMIT_MESSAGE){
             return true;
         }
-        return true;
+        return false;
     }
 
 

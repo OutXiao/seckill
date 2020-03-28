@@ -14,9 +14,36 @@
   </resultMap>
 
   <select id="getPromoteByItemId" resultMap="BaseResultMap">
-    SELECT *
+    SELECT id,promote_name,start_date,end_date,item_id,promote_item_price
     FROM promote
     WHERE item_id = #{itemId}
   </select>
+
+  <select id="getAllPromotion" resultMap="BaseResultMap">
+    SELECT id,promote_name,start_date,end_date,item_id,promote_item_price
+    FROM promote
+  </select>
+
+  <select id="getPromoteByPromotionId" resultMap="BaseResultMap">
+    SELECT id,promote_name,start_date,end_date,item_id,promote_item_price
+    FROM promote
+    WHERE id = #{promotionId}
+  </select>
+
+  <update id="update">
+    UPDATE promote
+    <set>
+      <if test="promote.id != null">
+        promote_name = #{promote.promoteName},start_date = #{promote.startDate},end_date = #{promote.endDate},item_id = #{promote.itemId},promote_item_price = #{promote.promoteItemPrice}
+      </if>
+    </set>
+    WHERE id = #{promote.id}
+  </update>
+
+  <delete id="deletePromotion">
+    DELETE
+    FROM promote
+    WHERE id = #{promotionId}
+  </delete>
 
 </mapper>

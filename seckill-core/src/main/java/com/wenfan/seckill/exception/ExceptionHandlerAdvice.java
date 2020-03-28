@@ -55,7 +55,7 @@ public class ExceptionHandlerAdvice {
 
     // 处理 Sys
     @ExceptionHandler(SystemException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseInfo badRequestExceptionHandler(SystemException t) {
         return new ResponseInfo(HttpStatus.INTERNAL_SERVER_ERROR + "", t.getMessage());
     }

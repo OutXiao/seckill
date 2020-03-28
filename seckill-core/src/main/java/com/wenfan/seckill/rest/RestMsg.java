@@ -27,6 +27,10 @@ public enum RestMsg {
 
     EDIT_SUCCESS(200,"修改成功"),
 
+    DEL_FAILURE(500,"删除失败"),
+
+    DEL_SUCCESS(200,"删除成功"),
+
     PASSWORD_INCORRECT(403,"密码错误");
 
 

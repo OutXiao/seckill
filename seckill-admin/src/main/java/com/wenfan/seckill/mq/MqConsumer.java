@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by wenfan on 2020/2/5 19:30
  */
 
-@Component
+//@Component
 public class MqConsumer {
 
 

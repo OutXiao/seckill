@@ -1,1 +1,1 @@
-var host = "117.33.248.191/api";
+var host = "localhost:8060/api";

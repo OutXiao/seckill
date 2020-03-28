@@ -64,8 +64,13 @@ public class ResponseInfo<T> implements Serializable {
 
 
 
+
     public static ResponseInfo success(Object o) {
         return new ResponseInfo(RestMsg.SUCCESS, o);
+    }
+
+    public static ResponseInfo exception(String exceptionMsg){
+        return new ResponseInfo("500",exceptionMsg);
     }
 
     public static ResponseInfo fail() {

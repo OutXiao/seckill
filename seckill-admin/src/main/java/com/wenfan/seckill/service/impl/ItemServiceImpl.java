@@ -89,13 +89,7 @@ public class ItemServiceImpl implements ItemService {
         itemVO.setStock(itemStock.getStock());
         // 获取商品活动信息
         Promote promote = promoteService.getPromoteInfoByItemId(id);
-        if (promote != null && promote.getStatus() != 3) {
-            itemVO.setPromotePrice(new BigDecimal(promote.getPromoteItemPrice()));
-            itemVO.setPromoteStatus(2);
-            itemVO.setPromoteId(promote.getId());
-            itemVO.setPromoteEndDate(DateUtils.formatDate(promote.getEndDate()));
-            itemVO.setPromoteStartDate(DateUtils.formatDate(promote.getStartDate()));
-        }
+        getPromotion(itemVO, promote);
         return itemVO;
 
 
@@ -109,6 +103,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemVO> getAllIsEnabledItemAndStock() {
 
         List<Item> itemList = itemMapper.getAllEnabledItem();
+
         if (itemList == null){
             return null;
         }
@@ -118,11 +113,25 @@ public class ItemServiceImpl implements ItemService {
             BeanUtils.copyProperties(item,itemVO);
             itemVO.setPrice(BigDecimal.valueOf(item.getPrice()));
             itemVO.setStock(stock.getStock());
+            // 获取商品活动信息
+            Promote promote = promoteService.getPromoteInfoByItemId(item.getId());
+            getPromotion(itemVO, promote);
             return itemVO;
         }).collect(Collectors.toList());
         return itemVOList;
     }
 
+
+
+    private void getPromotion(ItemVO itemVO, Promote promote) {
+        if (promote != null && promote.getStatus() != 3) {
+            itemVO.setPromotePrice(new BigDecimal(promote.getPromoteItemPrice()));
+            itemVO.setPromoteStatus(2);
+            itemVO.setPromoteId(promote.getId());
+            itemVO.setPromoteEndDate(DateUtils.formatDate(promote.getEndDate()));
+            itemVO.setPromoteStartDate(DateUtils.formatDate(promote.getStartDate()));
+        }
+    }
 
 
     @Override

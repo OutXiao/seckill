@@ -23,15 +23,12 @@ public class MyEmbeddedServletContainerCustomizer implements EmbeddedServletCont
     @Override
     public void customize(ConfigurableEmbeddedServletContainer container) {
         TomcatEmbeddedServletContainerFactory factory = (TomcatEmbeddedServletContainerFactory) container;
-        factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
-            @Override
-            public void customize(Connector connector) {
-                Http11NioProtocol http11NioProtocol = (Http11NioProtocol) connector.getProtocolHandler();
-                // 定制化keepalivetimeout ，设置30秒内没有请求则断开连接
-                http11NioProtocol.setKeepAliveTimeout(30000);
-                // 客户端发送超过10000个请求则自动断开连接
-                http11NioProtocol.setMaxKeepAliveRequests(10000);
-            }
+        factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
+            Http11NioProtocol http11NioProtocol = (Http11NioProtocol) connector.getProtocolHandler();
+            // 定制化keepalivetimeout ，设置30秒内没有请求则断开连接
+            http11NioProtocol.setKeepAliveTimeout(30000);
+            // 客户端发送超过10000个请求则自动断开连接
+            http11NioProtocol.setMaxKeepAliveRequests(10000);
         });
     }
 }

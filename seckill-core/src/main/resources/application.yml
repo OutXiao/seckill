@@ -86,8 +86,11 @@ logging:
   file: seckill.log
   path: var\local\youtube\log 
 
-
+# windows 启动 rocketmq    1.start mqnamesrv.cmd     2.  start mqmybroker.cmd -n localhost:9876
 rocketmq:
   nameserver:
     addr: 127.0.0.1:9876
   topicname: stock
+
+
+

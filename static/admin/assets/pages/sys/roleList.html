@@ -1,3 +1,9 @@
+<meta http-equiv="Cache-Control" content="max-age=7200" />
+<script>
+    $.ajaxSetup ({
+        cache: true
+    });
+</script>
 <style>
     table {
         table-layout: fixed;
@@ -172,14 +178,15 @@
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- Bootstrap Js -->
-    <script src="assets/js/bootstrap.min.js"></script>
     <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-    <script src="assets/js/sys/sys.js"></script>
-
+    <!--<script src="assets/js/sys/sys.js"></script>-->
+    <script type="text/javascript">
+        var now=new Date();
+        var str='<script src="assets/js/sys/sys.js?time='+now.getTime()+'" type="text/javascript"></scr'+'ipt>';
+        $("#page-wrapper").append(str);
+    </script>
     <script src="assets/js/ztree/jquery.ztree.core.js"></script>
     <script src="assets/js/ztree/jquery.ztree.excheck.js"></script>
 

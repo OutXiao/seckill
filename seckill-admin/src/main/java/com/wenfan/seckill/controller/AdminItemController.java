@@ -6,6 +6,7 @@ import com.wenfan.seckill.entity.ItemStock;
 import com.wenfan.seckill.entity.PageBean;
 import com.wenfan.seckill.entity.SysRole;
 import com.wenfan.seckill.exception.SystemException;
+import com.wenfan.seckill.mapper.ItemMapper;
 import com.wenfan.seckill.mapper.ItemStockMapper;
 import com.wenfan.seckill.model.AdminItemModel;
 import com.wenfan.seckill.rest.RestMsg;
@@ -38,6 +39,9 @@ public class AdminItemController {
 
     @Autowired
     private ItemStockMapper itemStockMapper;
+
+    @Autowired
+    private ItemMapper itemMapper;
 
     @GetMapping("/allItemByPage")
     public EntityVO<Item> getAllItemsByPage(HttpServletRequest request) {
@@ -126,6 +130,12 @@ public class AdminItemController {
         if (result == 0)
             return ResponseInfo.fail();
         return ResponseInfo.success();
+    }
+
+    @GetMapping("/allIdAndName")
+    public ResponseInfo getAllIdAndNamOfItem(){
+        List<Item> items = itemMapper.selectAll();
+        return ResponseInfo.success(items);
     }
 
 

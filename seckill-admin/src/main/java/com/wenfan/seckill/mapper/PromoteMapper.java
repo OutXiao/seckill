@@ -10,8 +10,11 @@
 package com.wenfan.seckill.mapper;
 
 import com.wenfan.seckill.entity.Promote;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 @Component
 @org.apache.ibatis.annotations.Mapper
@@ -19,4 +22,11 @@ public interface PromoteMapper extends Mapper<Promote> {
 
     Promote getPromoteByItemId(Integer itemId);
 
+    List<Promote> getAllPromotion();
+
+    Promote getPromoteByPromotionId(Integer promotionId);
+
+    int update(@Param("promote")Promote promote);
+
+    int deletePromotion(Integer promotionId);
 }

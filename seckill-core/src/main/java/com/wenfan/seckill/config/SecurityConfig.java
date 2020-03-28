@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         securityProperties.getBrowser().getUnAuthorizationUrl(),
                         "/", "/favicon.ico", "/css/**", "/js/**", "/fonts/**", "/img/**",
                         "/pages/**", "/druid/**",
-                        "/statics/**").permitAll()
+                        "/statics/**","/wx/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin().loginProcessingUrl("/login")

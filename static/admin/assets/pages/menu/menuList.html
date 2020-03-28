@@ -1,3 +1,9 @@
+<meta http-equiv="Cache-Control" content="max-age=7200" />
+<script>
+    $.ajaxSetup ({
+        cache: true
+    });
+</script>
 <style>
     table {
         table-layout: fixed;
@@ -160,6 +166,11 @@
     <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/treeTable/jquery.treetable.js"></script>
-    <script src="assets/js/menu/menu.js"></script>
+    <script type="text/javascript">
+        var now=new Date();
+        var str='<script src="assets/js/menu/menu.js?time='+now.getTime()+'" type="text/javascript"></scr'+'ipt>';
+        $("#page-wrapper").append(str);
+    </script>
+    <!--<script src="assets/js/menu/menu.js"></script>-->
 
 </div>

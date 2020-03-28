@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>秒杀系统注册</title>
+	<meta http-equiv="Cache-Control" content="max-age=7200" />
 	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
 	<meta content="yes" name="apple-mobile-web-app-capable" />
 	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
@@ -113,6 +114,11 @@
 	</section>
 </section>
 </body>
+<script>
+    $.ajaxSetup ({
+        cache: true
+    });
+</script>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/getHost.js"></script>
 <script type="text/javascript">

@@ -37,6 +37,12 @@
 <script type="text/javascript">
 
 
+
+    $.ajaxSetup ({
+        cache: true
+    });
+
+
     var token = JSON.parse(sessionStorage.getItem('token'));
     if (token != null && token.trim().length != 0) {
         $.ajax({
