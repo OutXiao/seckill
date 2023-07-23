@@ -21,7 +21,7 @@
         <jwt.version>0.9.0</jwt.version>
         <mybatis.version>4.0.3</mybatis.version>
         <springboot-mybatis.version>2.0.3</springboot-mybatis.version>
-        <pagehelper.version>4.1.1</pagehelper.version>
+        <pagehelper.version>5.3.1</pagehelper.version>
         <guava.version>18.0</guava.version>
         <rocketmq-client.version>4.3.0</rocketmq-client.version>
     </properties>
